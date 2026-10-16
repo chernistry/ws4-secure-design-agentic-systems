@@ -9,6 +9,7 @@ Hands-on guides and code examples for securing agentic systems and MCP deploymen
 1. [Input Data Sanitization and Filtering](#input-data-sanitization-and-filtering)
 1. [MCP Secure Tool Design](#mcp-secure-tool-design)
 1. [MCP Runtime Isolation](#mcp-runtime-isolation)
+1. [Measuring Reach After the Fact](#measuring-reach-after-the-fact)
 
 ## Guides
 
@@ -80,3 +81,9 @@ These guides provide implementation depth for threats and controls documented in
 
 - **[MCP Security whitepaper](../model-context-protocol-security.md)** — threat catalog (prompt injection, tool poisoning, command injection) that the sanitization guide defends against
 - **[CoSAI Risk Map](https://github.com/cosai-oasis/secure-ai-tooling/tree/main/risk-map)** — risk and control taxonomy (PIJ, RA, SDD, IMO) that the tool design guide maps to
+
+---
+
+### [Measuring Reach After the Fact](./measuring-reach-after-the-fact.md)
+
+The procedure the agent-containment paper leaves to a practical guide (§6.1): compare the resources a run touched, taken from its tool-call journal, with the versioned reachable set it ran under. There are three outcomes, `within`, `outside` and `not_established`, and they are kept apart, so a partial journal never reads as `within`. A worked example has eleven fixtures, one per branch of the procedure, and a grading harness that keeps the expected outcomes out of the checker.
