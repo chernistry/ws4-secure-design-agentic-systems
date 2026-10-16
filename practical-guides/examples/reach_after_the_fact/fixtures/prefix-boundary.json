@@ -1,0 +1,51 @@
+{
+  "$comment": "/workspace/repository-copy is not under /workspace/repo; prefixes match on path segments.",
+  "inventory": {
+    "inventory_id": "containment-sample-reach",
+    "digest": "sha256:25cd7848da4ff63352b37d7024272fa91907a2ef72813cc6c6aa03582358a112"
+  },
+  "sequence": {
+    "first_index": 0,
+    "last_index": 2,
+    "truncated": false
+  },
+  "calls": [
+    {
+      "index": 0,
+      "action_id": "call-000",
+      "tool": "mcp:git",
+      "touched": [
+        {
+          "kind": "path",
+          "id": "/workspace/repository-copy/x"
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "action_id": "call-001",
+      "tool": "mcp:git",
+      "touched": [
+        {
+          "kind": "path",
+          "id": "/workspace/repo/README.md"
+        },
+        {
+          "kind": "host",
+          "id": "api.example.internal:443"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "action_id": "call-002",
+      "tool": "mcp:git",
+      "touched": [
+        {
+          "kind": "host",
+          "id": "api.example.internal:443"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "$comment": "The journal does not name the inventory it ran under.",
+  "sequence": {
+    "first_index": 0,
+    "last_index": 2,
+    "truncated": false
+  },
+  "calls": [
+    {
+      "index": 0,
+      "action_id": "call-000",
+      "tool": "mcp:git",
+      "touched": [
+        {
+          "kind": "path",
+          "id": "/workspace/repo/src/app.py"
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "action_id": "call-001",
+      "tool": "mcp:git",
+      "touched": [
+        {
+          "kind": "path",
+          "id": "/workspace/repo/README.md"
+        },
+        {
+          "kind": "host",
+          "id": "api.example.internal:443"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "action_id": "call-002",
+      "tool": "mcp:git",
+      "touched": [
+        {
+          "kind": "host",
+          "id": "api.example.internal:443"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "within": {
+    "exit": 0,
+    "outcome": "within",
+    "violations": [],
+    "not_determinable": [],
+    "excess": [
+      "cred:deploy-token",
+      "pypi.org:443"
+    ]
+  },
+  "outside": {
+    "exit": 0,
+    "outcome": "outside",
+    "violations": [
+      [
+        1,
+        "host",
+        "exfil.example.net:443"
+      ]
+    ],
+    "not_determinable": []
+  },
+  "sequence-gap": {
+    "exit": 0,
+    "outcome": "not_established",
+    "violations": [],
+    "not_determinable": [
+      [
+        1,
+        "sequence_gap"
+      ]
+    ]
+  },
+  "truncated": {
+    "exit": 0,
+    "outcome": "not_established",
+    "violations": [],
+    "not_determinable": [
+      [
+        null,
+        "truncated"
+      ]
+    ]
+  },
+  "outside-and-gap": {
+    "exit": 0,
+    "outcome": "outside",
+    "violations": [
+      [
+        2,
+        "path",
+        "/etc/shadow"
+      ]
+    ],
+    "not_determinable": [
+      [
+        1,
+        "sequence_gap"
+      ]
+    ]
+  },
+  "inventory-not-named": {
+    "exit": 0,
+    "outcome": "not_established",
+    "violations": [],
+    "not_determinable": [
+      [
+        null,
+        "inventory_not_named"
+      ]
+    ]
+  },
+  "inventory-mismatch": {
+    "exit": 0,
+    "outcome": "not_established",
+    "violations": [],
+    "not_determinable": [
+      [
+        null,
+        "inventory_mismatch"
+      ]
+    ]
+  },
+  "touched-not-established": {
+    "exit": 0,
+    "outcome": "not_established",
+    "violations": [],
+    "not_determinable": [
+      [
+        2,
+        "touched_not_established"
+      ]
+    ]
+  },
+  "undeclared-tool": {
+    "exit": 0,
+    "outcome": "outside",
+    "violations": [
+      [
+        1,
+        "tool",
+        "mcp:shell"
+      ]
+    ],
+    "not_determinable": []
+  },
+  "malformed": {
+    "exit": 2
+  },
+  "prefix-boundary": {
+    "exit": 0,
+    "outcome": "outside",
+    "violations": [
+      [
+        0,
+        "path",
+        "/workspace/repository-copy/x"
+      ]
+    ],
+    "not_determinable": []
+  }
+}

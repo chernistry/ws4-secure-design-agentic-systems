@@ -1,0 +1,32 @@
+{
+  "$comment": "Declared reachable set for the containment sample, per the agent-containment paper \u00a76.1. Illustrative entries.",
+  "inventory_id": "containment-sample-reach",
+  "version": "2026-10-16.1",
+  "entries": [
+    {
+      "id": "api.example.internal:443",
+      "kind": "host",
+      "required_by_task": true
+    },
+    {
+      "id": "/workspace/repo",
+      "kind": "path_prefix",
+      "required_by_task": true
+    },
+    {
+      "id": "mcp:git",
+      "kind": "tool",
+      "required_by_task": true
+    },
+    {
+      "id": "pypi.org:443",
+      "kind": "host",
+      "required_by_task": false
+    },
+    {
+      "id": "cred:deploy-token",
+      "kind": "credential",
+      "required_by_task": false
+    }
+  ]
+}
