@@ -47,3 +47,47 @@ def test_fixture(name):
 
 def test_expectations_are_not_read_by_the_checker():
     assert "expected" not in (HERE / "reach.py").read_text()
+
+
+@pytest.fixture
+def journal():
+    return json.loads((HERE / "fixtures" / "within.json").read_text())
+
+
+def assert_processing_failure(journal, tmp_path):
+    path = tmp_path / "journal.json"
+    path.write_text(json.dumps(journal))
+    proc = subprocess.run(
+        [sys.executable, str(HERE / "reach.py"),
+         str(HERE / "reachable-set.json"), str(path)],
+        capture_output=True, text=True,
+    )
+    assert proc.returncode == 2, proc.stdout
+    assert proc.stdout == ""
+    assert proc.stderr.strip() != ""
+
+
+def test_truncation_true_is_a_processing_failure(journal, tmp_path):
+    journal["sequence"]["truncated"] = True
+    assert_processing_failure(journal, tmp_path)
+
+
+def test_duplicate_call_indices_are_a_processing_failure(journal, tmp_path):
+    journal["calls"].append(journal["calls"][0].copy())
+    assert_processing_failure(journal, tmp_path)
+
+
+@pytest.mark.parametrize("boundary,offset", [("first_index", -1), ("last_index", 1)],
+                         ids=["before-first", "after-last"])
+def test_call_indices_outside_declared_bounds_are_a_processing_failure(
+        journal, tmp_path, boundary, offset):
+    call = journal["calls"][0].copy()
+    call["index"] = journal["sequence"][boundary] + offset
+    journal["calls"].append(call)
+    assert_processing_failure(journal, tmp_path)
+
+
+def test_nonempty_inverted_bounds_are_a_processing_failure(journal, tmp_path):
+    journal["sequence"]["first_index"] = 5
+    journal["sequence"]["last_index"] = 2
+    assert_processing_failure(journal, tmp_path)

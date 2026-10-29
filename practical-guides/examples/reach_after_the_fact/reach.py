@@ -55,15 +55,22 @@ def compare(inventory, journal):
     sequence = need(journal, "sequence", dict, "journal")
     first = need(sequence, "first_index", int, "journal.sequence")
     last = need(sequence, "last_index", int, "journal.sequence")
-    if "truncated" not in sequence or not isinstance(sequence["truncated"], (bool, dict)):
+    if ("truncated" not in sequence or
+            (sequence["truncated"] is not False and not isinstance(sequence["truncated"], dict))):
         raise Malformed("journal.sequence.truncated: must be false or an object")
     calls = need(journal, "calls", list, "journal")
 
     of_kind = lambda kind: [i for i, k in declared.items() if k == kind]
     violations, unplaced, used = [], [], set()
+    present = set()
     for n, call in enumerate(calls):
         where = f"journal.calls[{n}]"
         index = need(call, "index", int, where)
+        if not first <= index <= last:
+            raise Malformed(f"{where}.index: outside sequence bounds")
+        if index in present:
+            raise Malformed(f"{where}.index: duplicate index {index}")
+        present.add(index)
         action_id = need(call, "action_id", str, where)
         tool = need(call, "tool", str, where)
         if "touched" not in call:
@@ -100,7 +107,6 @@ def compare(inventory, journal):
         not_determinable.append({"index": None, "reason": "inventory_mismatch"})
     if isinstance(sequence["truncated"], dict):
         not_determinable.append({"index": None, "reason": "truncated"})
-    present = {c["index"] for c in calls}
     not_determinable += [{"index": i, "reason": "sequence_gap"}
                          for i in range(first, last + 1) if i not in present]
     not_determinable += [{"index": i, "reason": "touched_not_established"} for i in unplaced]
